@@ -44,16 +44,16 @@ def print_activity_run_details(activity_run):
 def main():
 
     # Azure subscription ID
-    subscription_id = '94b45640-9caa-4aee-9764-8b9d08ba2c67'
+    subscription_id = 'SUBSCRIPTION_ID'
 
     # This program creates this resource group. If it's an existing resource group, comment out the code that creates the resource group
-    rg_name = 'kajolresourcegroup'
+    rg_name = 'RESOURCE_GROUP_NAME'
 
     # The data factory name. It must be globally unique.
-    df_name = 'kajoldf5'
+    df_name = 'DATA_FACTORY_NAME'
 
     # Specify your Active Directory client ID, client secret, and tenant ID
-    credentials = ClientSecretCredential(client_id='2ecaab02-43a5-41cb-a853-57373fa8e279', client_secret='hiUTL3nVG5.-1D6.D_nqm6g24.w4JWpToA', tenant_id='0e8f25a5-1b3a-4dcc-83a7-46555e7ef4e2') 
+    credentials = ClientSecretCredential(client_id='CLIENT_ID', client_secret='SECRET_KEY', tenant_id='TENANT_ID') 
     resource_client = ResourceManagementClient(credentials, subscription_id)
     adf_client = DataFactoryManagementClient(credentials, subscription_id)
 
@@ -76,7 +76,7 @@ def main():
     ls_name = 'storageLinkedService001'
 
     # IMPORTANT: specify the name and key of your Azure Storage account.
-    storage_string = SecureString(value='DefaultEndpointsProtocol=https;AccountName=kajolstorageaccount;AccountKey=I5Yoff/0pAaNbvnMG+UByaEOWe1t6Xnil6cqwGt+mo9a63BDHXJ4mtK8wyC+q7dH5qfibsc+O94Sp3XM94KHDg==;EndpointSuffix=core.windows.net')
+    storage_string = SecureString(value='CONNECTION_STRING')
 
     ls_azure_storage = LinkedServiceResource(properties=AzureStorageLinkedService(connection_string=storage_string)) 
     ls = adf_client.linked_services.create_or_update(rg_name, df_name, ls_name, ls_azure_storage)
